@@ -20,7 +20,7 @@ fun main() {
 
     val crossPoints = traceA.intersect(traceB)
 
-    val distances = crossPoints.map { (it.x + it.y).absoluteValue }
+    val distances = crossPoints.map { (it.x.absoluteValue + it.y.absoluteValue) }
 
     val smallest = distances.min()
 
