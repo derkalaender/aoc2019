@@ -1,11 +1,7 @@
 package de.derkalaender.aoc.nineteen.day3
 
-import kotlin.math.absoluteValue
-
 fun main() {
     val fileContent = {}.javaClass.getResource("/inputs/day3/input.txt").readText()
-
-    // I apologize for everything in here
 
     val pointSteps = fileContent.lines().map { l ->
         l.splitToSequence(',').map {
@@ -13,16 +9,12 @@ fun main() {
         }.toList()
     }
 
-    val p = Point(0, 0)
+    val start = Point(0, 0)
+    val pathA = Path(start).trace(pointSteps[0])
+    val pathB = Path(start).trace(pointSteps[1])
+    val crossPoints = pathA.getAllIntersections(pathB).filterNot { it == start }
 
-    val traceA = p.trace(pointSteps[0])
-    val traceB = p.trace(pointSteps[1])
+    val distances = crossPoints.map { it.getManhattanDistance(start) }
 
-    val crossPoints = traceA.intersect(traceB)
-
-    val distances = crossPoints.map { (it.x.absoluteValue + it.y.absoluteValue) }
-
-    val smallest = distances.min()
-
-    println("Smallest Manhattan Distance: $smallest")
+    println("Smallest Manhatten Distance: ${distances.min()}")
 }
