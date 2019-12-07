@@ -13,8 +13,9 @@ fun main() {
     val pathA = Path.trace(start, pointSteps[0])
     val pathB = Path.trace(start, pointSteps[1])
     val crossPoints = pathA.getAllIntersections(pathB).filterNot { it == start }
+    val crossPointSubPaths = crossPoints.map { pathA.getSubPath(it)!! to pathB.getSubPath(it)!! }
 
-    val distances = crossPoints.map { it.getManhattanDistance(start) }
+    val distances = crossPointSubPaths.map {it.first.length + it.second.length}
 
-    println("Smallest Manhatten Distance: ${distances.min()}")
+    println("Smallest combined path lengths: ${distances.min()}")
 }
