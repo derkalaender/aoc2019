@@ -12,15 +12,16 @@ fun main() {
     println(totalAmountOfFuelNeeded)
 }
 
-fun calcFuel(mass: Int): Int {
-    var fuel = ((mass/3) - 2).coerceAtLeast(0)
+tailrec fun calcFuel(newMass: Int, totalMass: Int = 0): Int {
+    val fuel = ((newMass/3) - 2).coerceAtLeast(0)
 
     /*
     Only further calculate fuel if additional amount would be at least 1
     => (1 + 2) * 3 = 9
     */
-    if(fuel >= 9) {
-        fuel += calcFuel(fuel)
+    return if(fuel >= 9) {
+        calcFuel(fuel, totalMass + fuel)
+    } else {
+        return totalMass
     }
-    return fuel
 }
